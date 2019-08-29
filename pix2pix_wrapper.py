@@ -144,8 +144,6 @@ def load_model(args=None):
     np.random.seed(a.seed)
     random.seed(a.seed)
 
-    if not os.path.exists(a.output_dir):
-        os.makedirs(a.output_dir)
 
     if a.mode == "test" or a.mode == "export":
         if a.checkpoint is None:
@@ -165,9 +163,6 @@ def load_model(args=None):
     else:
         print(' - Modo no implementado', file=sys.stderr)
         return None
-
-    with open(os.path.join(a.output_dir, "options.json"), "w") as f:
-        f.write(json.dumps(vars(a), sort_keys=True, indent=4))
 
 
     inputs_t = load_examples(a)
