@@ -233,7 +233,7 @@ class pix2pix_wrapper():
                 https://github.com/affinelayer/pix2pix-tensorflow
         """
 
-    def __init__(self, checkpoint_dir='./model_checkpoint'):
+    def __init__(self, checkpoint_dir='./model_checkpoint', load_model=False):
         self.checkpoint_dir = checkpoint_dir
         self.params         = Model_params(mode='test',
                                            checkpoint=checkpoint_dir)
@@ -241,7 +241,9 @@ class pix2pix_wrapper():
 
         if not os.path.exists(self.checkpoint_dir):
             raise Exception(' - ERROR, pix2pix_wrapper: checkpoint_dir = {} not exists'.format(self.checkpoint_dir))
-    
+
+        if load_model:
+            self.load_model()
         return None
 
 
@@ -299,7 +301,6 @@ if __name__ == '__main__':
         # Modelo prediction:
         img_trg = model.predict(img_v)
 
-        
         img = cv2.cvtColor(img_trg[0], cv2.COLOR_RGB2BGR)
         img = cv2.resize(img, (800, 800))
         
